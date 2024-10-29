@@ -1,0 +1,32 @@
+---
+layout: default
+---
+ 
+<input type="text" id="searchBar" onkeyup="searchProjects()" placeholder="Search for projects...">
+ 
+<ul id="projectList">
+{% for project in site.projects %}
+  <li>
+    <a href="{{ project.url }}">{{ project.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+<script>
+function searchProjects() {
+  // 获取搜索词
+  var input = document.getElementById('searchBar');
+  var filter = input.value.toUpperCase();
+  var projects = document.getElementById('projectList');
+  var items = projects.getElementsByTagName('a');
+ 
+  // 循环通过每个项目
+  for (var i = 0; i < items.length; i++) {
+    var title = items[i].textContent || items[i].innerText;
+    if (title.toUpperCase().indexOf(filter) > -1) {
+      items[i].style.display = "";
+    } else {
+      items[i].style.display = "none";
+    }
+  }
+}
+</script>
